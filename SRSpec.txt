@@ -10,47 +10,62 @@ This project will be mainly focused on social media users, specifically people w
 
 Product Scope
 The purpose of this simple social media application is to allow people to make posts that will stay publicated depending on the
-interaction that other users have with the post.
+interaction that other users have with the post. We plan to build a web application, much like Twitter or Reddit, where users 
+will be able to log in with a username and create public posts about a selected topic. Other users of the web app will be able 
+to see and interact other users' posts by commenting or liking. The more likes and comments a post has, the more visible it
+becomes to other users.
 
 2.	Overall Description
 
 2.1	Product Perspective
-Describe the context and origin of the product being specified in this SRS. For example, state whether this product is a follow-on
- member of a product family, a replacement for certain existing systems, or a new, self-contained product. If the SRS defines a component of a
-  larger system, relate the requirements of the larger system to the functionality of this software and identify interfaces between the two.
-   A simple diagram that shows the major components of the overall system, subsystem interconnections, and external interfaces can be helpful.
+    This simple social media web application is developed to exhibit communication between different software pieces. This web application will
+be a standalone product with the purpose of learning more about software communication. It will provide an interface for users to log in and 
+create public posts. The main focus of this application, however, will be exhibiting software communications as opposed to providing a 
+visually pleasing user interface. 
 
 2.2	Product Functions
-Summarize the major functions the product must perform or must let the user perform. Details will be provided in Section 3, so only a high level
- summary (such as a bullet list) is needed here. Organize the functions to make them understandable to any reader of the SRS. A picture of the major
-  groups of related requirements and how they relate, such as a top level data flow diagram or object class diagram, is often effective.
+The main product functions that will be used in this application will facilitate communication between client browsers and a web app server.
+    1. Browser -> Server 
+            Users will be able to use functions that let their browsers communicate with a centralized server holding saved data and additional 
+        functions to manipulate saved data. For example, a function may be used by users to send data making up their posts to the server to be 
+        saved in a database. A function may also be used to send the amount of likes a post has recieved from other users. 
+    2. Server -> Browser 
+            A server will also be able to use functions to communicate saved information (inside a database) to users' browsers. For example, 
+        a server function will send saved posts from other users to any client browsers connecting with the server. The server may also use a 
+        function to send information to client browsers regarding the lifespan or visibility of posts.
+    3. Browser (local)
+            Browsers may use local functions that do not require communication with the server. Such functions will generally be used to create
+        a user interface for users to create posts and like posts. 
+    4. Server (local)
+            The server may use local functions that do not require communication with client browsers. Such functions will generally be used 
+        to facilitate database use and locally calculate the lifespan and visibility of the post using information from the database. 
 
 2.3	User Classes and Characteristics
-Identify the various user classes that you anticipate will use this product. User classes may be differentiated based on frequency of use, subset of
- product functions used, technical expertise, security or privilege levels, educational level, or experience. Describe the pertinent characteristics of
-  each user class. Certain requirements may pertain only to certain user classes. Distinguish the most important user classes for this product from those
-   who are less important to satisfy.
+    This application will only cater to one user class: the users. Users will be provided a user interface where they can view and interact with 
+other user posts and create their own. To put in more technically, the user interface will give Users the ability to interact with a server containing 
+a database. Browser-server communication, however, will be abstracted from the users to provide a simpler experience. They will, for the most part,  
+interact with the user interface without having to think of any technical details about browser-server communication. 
 
 2.4	Operating Environment
-Describe the environment in which the software will operate, including the hardware platform, operating system and versions, and any other software
- components or applications with which it must peacefully coexist.
+    We plan to host our web app on the Odin server. Any user will be able to access our app simply by searching up either mine or Marc's public directory. 
+Users will just have to enter a username upon arrival to start using the application. The Odin server will hold database details that users can connect
+to see other users' saved posts or to create and save their own posts via a browser user interface located in our public student directories.  
 
 2.5	Design and Implementation Constraints
-Describe any items or issues that will limit the options available to the developers. These might include: corporate or regulatory policies; hardware
- limitations (timing requirements, memory requirements); interfaces to other applications; specific technologies, tools, and databases to be used; parallel
-  operations; language requirements; communications protocols; security considerations; design conventions or programming standards (for example, if the 
-  customer’s organization will be responsible for maintaining the delivered software).
+    Our main constraint will be memory space since each student in our Odin server is allocated a quota. If the database and its content proves to be 
+too large, we may have to create a memory consolidation scheme to prevent our database from taking too much server memory space. We may also 
+just choose to locate our database elsewhere. Our server will become a sort middle-man between user browsers and the database. 
 
 2.6	User Documentation
-List the user documentation components (such as user manuals, on-line help, and tutorials) that will be delivered along with the software.
- Identify any known user documentation delivery formats or standards.
+    Since this web application will be relatively simple and minimal, with our main focus pointed towards establishing browser-server communication, 
+user documenation will be provided in the app. A 'help' section will be provided for users and will detail how to use the application. As previously
+stated, browser-server communication will be abstracted from the user experience to make application usage simpler. 
 
 2.7	Assumptions and Dependencies
-List any assumed factors (as opposed to known facts) that could affect the requirements stated in the SRS. These could include third-party
- or commercial components that you plan to use, issues around the development or operating environment, or constraints. The project could be
-  affected if these assumptions are incorrect, are not shared, or change. Also identify any dependencies the project has on external factors,
-   such as software components that you intend to reuse from another project, unless they are already documented elsewhere (for example, in the
-    vision and scope document or the project plan).
+    A user interface will be provided to users by accessing our public student directories on Odin. The user interface will communicate with a NodeJS
+server with the use of sockets via SocketIO. The NodeJS server will store user and post information on a MongoDB database. As this web application
+requires the collaborate of different sofwtare technologies, complications and errors, if any, will most likely occur during socket
+communciation between the user browser interface and the NodeJS server. 
 
 3.	External Interface Requirements
 
