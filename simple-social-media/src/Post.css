@@ -1,0 +1,37 @@
+.post {
+    display: flex;
+    align-items: flex-start;
+    border-bottom: 1px solid var(--secondary--color);
+    padding-bottom: 10px;
+}
+
+.post__body {
+    flex: 1;
+    padding: 10px;
+}
+
+.post__footer {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+
+.post__likes:hover {
+    background-color: var(--secondary--color);
+    border-radius: 30px;
+    color: var(--main-color);
+    transition: color 0.1s ease-out;
+}
+.post__likes {
+    font-weight: 700;
+}
+
+.post__headerDescription {
+    margin-bottom: 10px;
+    font-size: 15px;
+}
+
+.post__headerText > h3 {
+    font-size: 15px;
+    margin-bottom: 5px;
+}
