@@ -1,19 +1,16 @@
 1.	Introduction
 
 Purpose 
-The purpose of this document is to build a simple social media application that will allow users to create and interact with
-each others' posts.
+The purpose of this document is to build a simple social media application that will allow users to create public posts and interact with
+each others' posts in a public feed.
 
 
 Intended Audience and Reading Suggestions
 This project will be mainly focused on social media users, specifically people who want to create posts to share their ideas.
 
 Product Scope
-The purpose of this simple social media application is to allow people to make posts that will stay publicated depending on the
-interaction that other users have with the post. We plan to build a web application, much like Twitter or Reddit, where users 
-will be able to log in with a username and create public posts about a selected topic. Other users of the web app will be able 
-to see and interact other users' posts by commenting or liking. The more likes and comments a post has, the more visible it
-becomes to other users.
+The purpose of this simple social media application is to allow people to make posts that will stay publicated. We plan to build a web application, much like Twitter or Reddit, where users 
+will be able to log in with a username and create public posts. Other users of the web app will be able to see and interact other users' posts by liking.
 
 2.	Overall Description
 
@@ -24,48 +21,43 @@ create public posts. The main focus of this application, however, will be exhibi
 visually pleasing user interface. 
 
 2.2	Product Functions
-The main product functions that will be used in this application will facilitate communication between client browsers and a web app server.
-    1. Browser -> Server 
-            Users will be able to use functions that let their browsers communicate with a centralized server holding saved data and additional 
-        functions to manipulate saved data. For example, a function may be used by users to send data making up their posts to the server to be 
-        saved in a database. A function may also be used to send the amount of likes a post has recieved from other users. 
-    2. Server -> Browser 
-            A server will also be able to use functions to communicate saved information (inside a database) to users' browsers. For example, 
-        a server function will send saved posts from other users to any client browsers connecting with the server. The server may also use a 
-        function to send information to client browsers regarding the lifespan or visibility of posts.
+The main product functions that will be used in this application will facilitate communication between client browsers and the realtime Firebase database.
+    1. Browser -> Realtime DB 
+            Users will be able to use functions that let their browsers communicate with a realtime database. For example, a function may be used by users 
+        to send data making up their posts to be saved in a realtime database. A function may also be used to send the amount of likes a post has recieved
+        from other users. 
     3. Browser (local)
             Browsers may use local functions that do not require communication with the server. Such functions will generally be used to create
         a user interface for users to create posts and like posts. 
     4. Server (local)
             The server may use local functions that do not require communication with client browsers. Such functions will generally be used 
-        to facilitate database use and locally calculate the lifespan and visibility of the post using information from the database. 
+        to facilitate database use and locally calculate and visibility of the post using information from the database. 
 
 2.3	User Classes and Characteristics
     This application will only cater to one user class: the users. Users will be provided a user interface where they can view and interact with 
-other user posts and create their own. To put in more technically, the user interface will give Users the ability to interact with a server containing 
-a database. Browser-server communication, however, will be abstracted from the users to provide a simpler experience. They will, for the most part,  
-interact with the user interface without having to think of any technical details about browser-server communication. 
+other user posts and create their own. To put in more technically, the user interface will give Users the ability to interact with a realtime database.
+Browser-realtime database communication, however, will be abstracted from the users to provide a simpler experience. They will, for the most part,  
+interact with the user interface without having to think of any technical details about browser-realtime DB communication. 
 
 2.4	Operating Environment
-    We plan to host our web app on the Odin server. Any user will be able to access our app simply by searching up either mine or Marc's public directory. 
-Users will just have to enter a username upon arrival to start using the application. The Odin server will hold database details that users can connect
-to see other users' saved posts or to create and save their own posts via a browser user interface located in our public student directories.  
+    We plan to host our web app with Firebase hosting. Any user will be able to access our app simply by searching up this url: ****. 
+Users will just have to enter a username upon arrival to start using the application. The Firebase will hold database details that users can connect
+to see other users' saved posts or to create and save their own posts via a browser user interface.  
 
 2.5	Design and Implementation Constraints
-    Our main constraint will be memory space since each student in our Odin server is allocated a quota. If the database and its content proves to be 
+    Our main constraint will be memory space since Firebase cannot hold a significant amount data before having to pay. If the database and its content proves to be 
 too large, we may have to create a memory consolidation scheme to prevent our database from taking too much server memory space. We may also 
 just choose to locate our database elsewhere. Our server will become a sort middle-man between user browsers and the database. 
 
 2.6	User Documentation
-    Since this web application will be relatively simple and minimal, with our main focus pointed towards establishing browser-server communication, 
-user documenation will be provided in the app. A 'help' section will be provided for users and will detail how to use the application. As previously
-stated, browser-server communication will be abstracted from the user experience to make application usage simpler. 
+    Since this web application will be relatively simple and minimal, with our main focus pointed towards establishing browser-realtime DB communication, 
+user documenation will be provided in the app. As previously stated, browser-realtime DB communication will be abstracted from the user experience to make 
+application usage simpler. 
 
 2.7	Assumptions and Dependencies
-    A user interface will be provided to users by accessing our public student directories on Odin. The user interface will communicate with a NodeJS
-server with the use of sockets via SocketIO. The NodeJS server will store user and post information on a MongoDB database. As this web application
-requires the collaborate of different sofwtare technologies, complications and errors, if any, will most likely occur during socket
-communciation between the user browser interface and the NodeJS server. 
+    A user interface will be provided to users by accessing our web app through a Firebase hosting link. The client browers will communicate with
+Firebase's realtime database by taking snapshots of the current state of the database. Communication errors will most likely happen in the browser-realtime 
+database connection. Data may have been altered in the database or fail to be brought up on the browser.
 
 3.	External Interface Requirements
 
@@ -80,16 +72,13 @@ hardware limitations. If you are able to run a web browser, you will be able to 
 mouse to interact with the web page.
 
 3.3	Software Interfaces
-    As previously stated, we will be using odin to host the NodeJS server. Included in the server will be a the use of sockets using the SocketIO library which will allow
-for us to use sockets for communication between the browser and the server. The information recieved from the browser will be stored in a MongoDB database which will
-hold the users, users' posts, and interaction with the posts. Since it will be a web based there is no operating system requirement, as long as the OS supports the use
-of web browers.
+    The bulk of the software heavylifting is done by Firebase's Firestore realtime database. Firestore is a cloud database. When users see other users' posts
+in a public feed, the client browser are using a Firestore functionality allowing then to take snapshots of the current state of a collection in realtime. 
+The frontend development of the user interface utilized the React framework. 
 
 3.4	Communications Interfaces
-    We will using SocketIO from NodeJs in the browser to connect to the server on Odin. We will use these sockets to connect to the host locally. We will also be using sockets
-to see if there have been connections to the servers and if a connection is made the Mongodb database will be accessed and used to show all previous posts.
-If a user were to want to create a post, there would a signal that will be used to show that a user it trying to create a post and once the signal is recieved,
-the post will be stored into the database.
+    Firestore allows client browser connections to take 'snapshots' of the current state of a collection. A public feed of other users' posts is created 
+through these snapshots. 
 
 4.	System Features
 
@@ -107,5 +96,5 @@ Post Creation and Interaction
 
 4.1.3	Functional Requirements	
     REQ-1:  The text box must allow user to create text and post the text exactly as it was written by the user.
-    REQ-2:  Upon failing to connect to the socket, there will be dialog that says there is an error connecting.
-    REQ-3:  TBD: There may be a character limit to ensure that there is not too much information stored in the database as we may be limited by odin.
+    REQ-2:  Upon failing to connect to the Firestore database, there will be dialog that says there is an error connecting.
+    REQ-3:  TBD: There may be a character limit to ensure that there is not too much information stored in the database as we may be limited by Firestore.
